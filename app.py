@@ -66,7 +66,7 @@ st.markdown("---")
 
 # Modular Tabs for Team Members & Machine Learning
 tab1, tab2, tab3, tab4 = st.tabs([
-    "Can",
+    "Geospatial & Logistics Flow",
     "Umran",
     "Berkay",
     "Machine Learning Models"
