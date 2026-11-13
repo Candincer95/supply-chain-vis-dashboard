@@ -2,3 +2,6 @@ DataCoSupplyChainDataset.csv
 __pycache__/
 *.pyc
 .DS_Store
+tokenized_access_logs.csv
+DescriptionDataCoSupplyChain.csv
+DataCoSupplyChainDataset.csv
