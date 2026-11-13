@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-from charts.member1_geo import render_member1_charts
-from charts.member2_product import render_member2_charts
-from charts.member3_ml import render_member3_charts
+from charts import can, arkadas1, arkadas2, ml_models
 
 st.set_page_config(page_title="Supply Chain Analytics Dashboard", layout="wide")
 st.title("Global Supply Chain Analytics & Delivery Risk Prediction Dashboard")
@@ -38,24 +36,28 @@ filtered_df = df[
 if only_late:
     filtered_df = filtered_df[filtered_df["Late_delivery_risk"] == 1]
 
-# Top KPI Cards
+# Top KPI Summary
 col1, col2, col3 = st.columns(3)
 col1.metric("Filtered Orders", f"{len(filtered_df):,}")
 col2.metric("Total Sales", f"${filtered_df['Sales'].sum():,.0f}")
 col3.metric("Late Delivery Rate", f"{(filtered_df['Late_delivery_risk'].mean()*100):.1f}%")
 
-# Modular Tabs for Each Team Member
-tab1, tab2, tab3 = st.tabs([
-    "Logistics & Geo Flow (Member 1)",
-    "Product & Profitability (Member 2)",
-    "Trends & ML Predictions (Member 3)"
+# Tabs for Each Team Member + ML Section
+tab1, tab2, tab3, tab4 = st.tabs([
+    "Can",
+    "Member 2",
+    "Member 3",
+    "Machine Learning"
 ])
 
 with tab1:
-    render_member1_charts(filtered_df)
+    can.render_charts(filtered_df)
 
 with tab2:
-    render_member2_charts(filtered_df)
+    arkadas1.render_charts(filtered_df)
 
 with tab3:
-    render_member3_charts(filtered_df)
+    arkadas2.render_charts(filtered_df)
+
+with tab4:
+    ml_models.render_ml(filtered_df)
