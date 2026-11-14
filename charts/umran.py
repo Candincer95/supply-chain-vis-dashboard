@@ -261,6 +261,13 @@ def render_charts(df):
     cat_stats = node_stats(period_df, ["Category Name"])
     spread = float((cat_stats[metric_key] - center).abs().quantile(0.9)) if len(cat_stats) > 1 else 5.0
     spread = max(spread, 2.0)
+    # Keep the colour range inside 0-100 for rates (late delivery, discount)
+    cmin, cmax = center - spread, center + spread
+    if metric_key in ("late", "disc"):
+        cmin, cmax = max(0.0, cmin), min(100.0, cmax)
+        if cmax - cmin < 1e-9:
+            cmin, cmax = max(0.0, center - 1), min(100.0, center + 1)
+    no_variation = len(cat_stats) > 0 and float(cat_stats[metric_key].max() - cat_stats[metric_key].min()) < 1e-9
 
     fig_tree = go.Figure(go.Treemap(
         ids=ids,
@@ -274,9 +281,9 @@ def render_charts(df):
             colors=colors,
             colorscale=color_scale,
             cmid=center,
-            cmin=center - spread,
-            cmax=center + spread,
-            showscale=True,
+            cmin=cmin,
+            cmax=cmax,
+            showscale=not no_variation,
             colorbar=dict(title=treemap_metric, outlinewidth=0),
             line=dict(color="white", width=1)
         ),
@@ -298,6 +305,12 @@ def render_charts(df):
         margin=dict(l=10, r=10, t=50, b=10)
     )
     st.plotly_chart(fig_tree, width="stretch", key="umran_treemap_chart")
+    if no_variation:
+        st.caption(
+            f"Every category has the same {treemap_metric.lower()} ({center:.1f}%) for the current filters "
+            f"(e.g. 'Show Only Late Deliveries' makes every late rate 100%), so the colours show no difference. "
+            f"Choose another colour metric to compare categories."
+        )
 
     if len(cat_stats) > 0:
         cat_idx = cat_stats.set_index("Category Name")
