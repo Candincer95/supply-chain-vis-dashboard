@@ -10,9 +10,7 @@ def render_charts(df):
         st.warning("No data available for the selected filters. Please adjust the sidebar filters.")
         return
 
-    # =========================================================================
     # 1. Interactive Global Bubble Map with Dynamic Metric Selector
-    # =========================================================================
     st.subheader("1. Global Customer Demand, Profitability & Delivery Risk Map")
     
     map_metric = st.radio(
@@ -109,9 +107,7 @@ def render_charts(df):
 
     st.divider()
 
-    # =========================================================================
     # 2. Color-Coded Sankey Flow Diagram
-    # =========================================================================
     st.subheader("2. Supply Chain Routing Flow: Market → Shipping Mode → Delivery Status")
     sankey_df = df.groupby(["Market", "Shipping Mode", "Delivery Status"]).size().reset_index(name="Count")
 
@@ -166,10 +162,8 @@ def render_charts(df):
     st.caption("Insight: Red ribbons immediately expose that First Class and Second Class shipments disproportionately funnel into late deliveries.")
 
     st.divider()
-
-    # =========================================================================
+    
     # 3. Interactive Top-N Sunburst Hierarchy Chart
-    # =========================================================================
     st.subheader("3. Hierarchical Sales & Profitability: Market → Region → Country")
     
     top_n = st.slider("Number of Top Countries to Display in Hierarchy:", min_value=10, max_value=60, value=30, step=5)
