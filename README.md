@@ -62,9 +62,9 @@ requirements.txt
 | Member | Contribution |
 | --- | --- |
 | İbrahim Can Dinçer | Data cleaning and preprocessing, GitHub repository, dashboard layout and sidebar filters (`app.py`), map, Sankey and sunburst charts |
-| Ümran Er | Connected scatterplot, treemap and parallel coordinates with linked views (`charts/umran.py`), project report |
+| Ümran Er | Connected scatterplot, treemap and parallel coordinates with linked views (`charts/umran.py`), project report and README |
 | Berkay Doyuran | Heatmap, dumbbell and mosaic charts (`charts/berkay.py`), decision-tree and KNN models (`charts/ml_models.py`) |
 
 ## AI assistance
 
-Gemini was used for parts of the data cleaning. Claude Opus 5.5 (Anthropic) was used on 14 November 2026 to help develop and test `charts/umran.py`.
+ChatGPT, Claude (Claude Opus 5.5) and Gemini were used as AI assistants.
