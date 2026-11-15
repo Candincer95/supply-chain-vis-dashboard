@@ -68,7 +68,7 @@ st.markdown("---")
 tab1, tab2, tab3, tab4 = st.tabs([
     "Geospatial & Logistics Flow",
     "Temporal & Product Performance",
-    "Berkay",
+    "Sales, Shipping & Order Status",
     "Machine Learning Models"
 ])
 
