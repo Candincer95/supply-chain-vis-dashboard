@@ -82,4 +82,4 @@ with tab3:
     berkay.render_charts(filtered_df)
 
 with tab4:
-    ml_models.render_ml(filtered_df)
+    ml_models.render_ml(df)
